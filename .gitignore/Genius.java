@@ -14,9 +14,9 @@ import javax.swing.JMenuItem;
 public class Genius extends JFrame {
 
 	// private JButton buttons[] = new JButton[4];// Define um array para
- // referenciar 4
+	// referenciar 4
 	static List<Integer> vetorComputador = new ArrayList<>();
-	static List<Integer> vetorJogador = new ArrayList<>();													// botões
+	static List<Integer> vetorJogador = new ArrayList<>(); // botões
 	private JMenu menu;
 	private JMenuBar menuBar;
 	private JMenuItem menuSair;
@@ -40,8 +40,9 @@ public class Genius extends JFrame {
 		 * getContentPane().add(buttons[i]);// Adiciona os botões ao formulário
 		 * buttons[i].setBackground(Color.WHITE); }
 		 */
+		boolean erro = false;
 		Random gerador = new Random();
-		//int random_botao = gerador.nextInt(4);
+		// int random_botao = gerador.nextInt(4);
 		vetorComputador.add(gerador.nextInt(4));
 		botaoVerde = new JButton("");
 		getContentPane().add(botaoVerde);
@@ -61,7 +62,8 @@ public class Genius extends JFrame {
 		menuSair = new JMenuItem();
 		menuIniciar = new JMenuItem();
 
-		getContentPane().setLayout(new java.awt.GridLayout(2, 2));// Layout para os botoes														
+		getContentPane().setLayout(new java.awt.GridLayout(2, 2));// Layout para
+																	// os botoes
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		/* Define um evento de pressionamento dos botoes */
@@ -100,26 +102,8 @@ public class Genius extends JFrame {
 				// for (int i = 0; i < 4; i++) {
 				// piscaBotao(i);
 				// }
-				for(int i = 0; i < vetorComputador.size(); i++){
-					Random gerador = new Random();
-					int random_botao = gerador.nextInt(4);
-					System.out.println(random_botao);
-					if (random_botao == 0) {
-						JButton b = botaoVerde;
-						piscaBotao(b);
-					}
-					if (random_botao == 1) {
-						JButton b = botaoAmarelo;
-						piscaBotao(b);
-					}
-					if (random_botao == 2) {
-						JButton b = botaoVermelho;
-						piscaBotao(b);
-					}
-					if (random_botao == 3) {
-						JButton b = botaoAzul;
-						piscaBotao(b);
-					}
+				while (!erro) {
+					verificaBotao();
 				}
 			}
 		});
@@ -129,13 +113,37 @@ public class Genius extends JFrame {
 		menuBar.add(menu);
 		setJMenuBar(menuBar);
 	}
+	private void verificaBotao(){
+		for (int i = 0; i < vetorComputador.size(); i++) {
+			Random gerador = new Random();
+			int random_botao = gerador.nextInt(4);
+			System.out.println(random_botao);
+			if (random_botao == 0) {
+				JButton b = botaoVerde;
+				piscaBotao(b);
+			}
+			if (random_botao == 1) {
+				JButton b = botaoAmarelo;
+				piscaBotao(b);
+			}
+			if (random_botao == 2) {
+				JButton b = botaoVermelho;
+				piscaBotao(b);
+			}
+			if (random_botao == 3) {
+				JButton b = botaoAzul;
+				piscaBotao(b);
+			}
+		}
+		
+	}
 
 	private void piscaBotao(JButton b) {
 		if (b == botaoVerde) {
 			b.setBackground(Color.GREEN.brighter());
 			try {
 				update(getGraphics());// Atualiza o formulário
-				Thread.sleep(800);// INterrompe a rotina em 0,5 segundos
+				Thread.sleep(1200);// INterrompe a rotina
 			} catch (InterruptedException e) {
 				System.err.println(e.getMessage());
 			}
@@ -145,7 +153,7 @@ public class Genius extends JFrame {
 			b.setBackground(Color.YELLOW.brighter());
 			try {
 				update(getGraphics());// Atualiza o formulário
-				Thread.sleep(800);// INterrompe a rotina em 0,5 segundos
+				Thread.sleep(1200);// INterrompe a rotina
 			} catch (InterruptedException e) {
 				System.err.println(e.getMessage());
 			}
@@ -155,23 +163,23 @@ public class Genius extends JFrame {
 			b.setBackground(Color.RED.brighter());
 			try {
 				update(getGraphics());// Atualiza o formulário
-				Thread.sleep(800);// INterrompe a rotina em 0,5 segundos
+				Thread.sleep(1200);// INterrompe a rotina
 			} catch (InterruptedException e) {
 				System.err.println(e.getMessage());
 			}
 			b.setBackground(Color.RED.darker());
 		}
 		if (b == botaoAzul) {
-			b.setBackground(Color.BLUE.brighter());
+			b.setBackground(new Color(0,94,255));
 			try {
 				update(getGraphics());// Atualiza o formulário
-				Thread.sleep(800);// INterrompe a rotina em 0,5 segundos
+				Thread.sleep(1200);// INterrompe a rotina e
 			} catch (InterruptedException e) {
 				System.err.println(e.getMessage());
 			}
 			b.setBackground(Color.BLUE.darker());
 		}
-		
+
 	}
 
 	public static void main(String args[]) {
