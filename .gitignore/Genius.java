@@ -14,9 +14,9 @@ import javax.swing.JMenuItem;
 public class Genius extends JFrame {
 
 	// private JButton buttons[] = new JButton[4];// Define um array para
+ // referenciar 4
 	static List<Integer> vetorComputador = new ArrayList<>();
-	static List<Integer> vetorJogador = new ArrayList<>(); // referenciar 4
-															// botões
+	static List<Integer> vetorJogador = new ArrayList<>();													// botões
 	private JMenu menu;
 	private JMenuBar menuBar;
 	private JMenuItem menuSair;
@@ -40,6 +40,9 @@ public class Genius extends JFrame {
 		 * getContentPane().add(buttons[i]);// Adiciona os botões ao formulário
 		 * buttons[i].setBackground(Color.WHITE); }
 		 */
+		Random gerador = new Random();
+		//int random_botao = gerador.nextInt(4);
+		vetorComputador.add(gerador.nextInt(4));
 		botaoVerde = new JButton("");
 		getContentPane().add(botaoVerde);
 		botaoVerde.setBackground(Color.GREEN.darker());
@@ -58,14 +61,10 @@ public class Genius extends JFrame {
 		menuSair = new JMenuItem();
 		menuIniciar = new JMenuItem();
 
-		getContentPane().setLayout(new java.awt.GridLayout(2, 2));// Layout para
-																	// acomodar
-																	// os botões
-																	// na forma
-																	// #
+		getContentPane().setLayout(new java.awt.GridLayout(2, 2));// Layout para os botoes														
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-		/* Define um evento de pressionamento de botão para o botão 0 */
+		/* Define um evento de pressionamento dos botoes */
 		botaoVerde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				piscaBotao(botaoVerde);
@@ -101,24 +100,26 @@ public class Genius extends JFrame {
 				// for (int i = 0; i < 4; i++) {
 				// piscaBotao(i);
 				// }
-				Random gerador = new Random();
-				int random_botao = gerador.nextInt(4);
-				System.out.println(random_botao);
-				if (random_botao == 0) {
-					JButton b = botaoVerde;
-					piscaBotao(b);
-				}
-				if (random_botao == 1) {
-					JButton b = botaoAmarelo;
-					piscaBotao(b);
-				}
-				if (random_botao == 2) {
-					JButton b = botaoVermelho;
-					piscaBotao(b);
-				}
-				if (random_botao == 3) {
-					JButton b = botaoAzul;
-					piscaBotao(b);
+				for(int i = 0; i < vetorComputador.size(); i++){
+					Random gerador = new Random();
+					int random_botao = gerador.nextInt(4);
+					System.out.println(random_botao);
+					if (random_botao == 0) {
+						JButton b = botaoVerde;
+						piscaBotao(b);
+					}
+					if (random_botao == 1) {
+						JButton b = botaoAmarelo;
+						piscaBotao(b);
+					}
+					if (random_botao == 2) {
+						JButton b = botaoVermelho;
+						piscaBotao(b);
+					}
+					if (random_botao == 3) {
+						JButton b = botaoAzul;
+						piscaBotao(b);
+					}
 				}
 			}
 		});
@@ -170,6 +171,7 @@ public class Genius extends JFrame {
 			}
 			b.setBackground(Color.BLUE.darker());
 		}
+		
 	}
 
 	public static void main(String args[]) {
