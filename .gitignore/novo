@@ -1,0 +1,79 @@
+package Genius;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+
+public class GeniusPrincipal{
+	List<Integer> vetorJogador = new ArrayList<>();
+	List<Integer> vetorComputador = new ArrayList<>();
+
+	private JButton botaoVerde;
+	private JButton botaoAzul;
+	private JButton botaoVermelho;
+	private JButton botaoAmarelo;
+
+	public static void main(String[] args) {
+		new GeniusPrincipal().processar();
+	}
+
+	private void processar() {
+		JFrame janela = new JFrame();
+		JPanel painel = new JPanel();
+		JMenuBar menu = new JMenuBar();
+		JMenu jogo = new JMenu("Jogo");
+		JMenuItem iniciar = new JMenuItem("Iniciar");
+		JMenuItem sair = new JMenuItem("Sair");
+
+		jogo.add(iniciar);
+		jogo.add(sair);
+		menu.add(jogo);
+
+		botaoVerde = new JButton("");
+		painel.add(botaoVerde);
+		botaoVerde.setBackground(Color.GREEN.darker());
+		botaoAmarelo = new JButton("");
+		painel.add(botaoAmarelo);
+		botaoAmarelo.setBackground(Color.YELLOW.darker());
+		botaoVermelho = new JButton("");
+		painel.add(botaoVermelho);
+		botaoVermelho.setBackground(Color.RED.darker());
+		botaoAzul = new JButton("");
+		painel.add(botaoAzul);
+		botaoAzul.setBackground(Color.BLUE.darker());
+
+		painel.setLayout(new GridLayout(2, 2));
+		
+		janela.add(painel);
+		janela.setLocationRelativeTo(null);
+		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setSize(600, 600);
+		janela.setVisible(true);
+		janela.setJMenuBar(menu);
+
+		sair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				System.exit(0);
+			}
+		});
+		
+		iniciar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				System.exit(0);
+			}
+		});
+		
+		
+	}
+
+}
