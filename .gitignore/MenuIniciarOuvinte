@@ -1,0 +1,40 @@
+package Genius;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
+public class MenuIniciarOuvinte extends GeniusPrincipal implements ActionListener {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("Clicou no botao PISCAR");
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					piscar(botaoVerde);
+					//piscar(botaoAzul);
+					//piscar(botaoVermelho);
+					//piscar(botaoAmarelo);
+					// vetorJogador.add(1);
+					// validarJogada();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
+	public void piscar(JButton botao) throws InterruptedException {
+		// for (int i = 0; i < 15; i++) {
+		botao.setBackground(Color.green.brighter());
+		Thread.sleep(300);
+		botao.setBackground(Color.green.darker().darker());
+		Thread.sleep(300);
+		// }
+	}
+
+}
