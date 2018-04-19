@@ -1,0 +1,188 @@
+package Genius;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.SwingWorker;
+
+public class GeniusPrincipal extends JFrame {
+	List<Integer> vetorJogador = new ArrayList<>();
+	List<Integer> vetorComputador = new ArrayList<>();
+
+	JButton botaoAzul = new JButton();
+	JButton botaoVermelho = new JButton();
+	JButton botaoVerde = new JButton();
+	JButton botaoAmarelo = new JButton();
+	JButton[] vetorBotao = new JButton[4];
+	JMenu menu = new JMenu();
+	int numBotao = 0;
+
+	public GeniusPrincipal() {
+		JFrame janela = new JFrame();
+		JPanel painel = new JPanel();
+		JMenuBar menu = new JMenuBar();
+		JMenu jogo = new JMenu("Jogo");
+		JMenuItem iniciar = new JMenuItem("Iniciar");
+		JMenuItem sair = new JMenuItem("Sair");
+
+		jogo.add(iniciar);
+		jogo.add(sair);
+		menu.add(jogo);
+
+		botaoVerde = new JButton("");
+		painel.add(botaoVerde);
+		botaoVerde.setBackground(Color.GREEN.darker().darker());
+		botaoAmarelo = new JButton("");
+		painel.add(botaoAmarelo);
+		botaoAmarelo.setBackground(Color.YELLOW.darker().darker());
+		botaoVermelho = new JButton("");
+		painel.add(botaoVermelho);
+		botaoVermelho.setBackground(Color.RED.darker().darker().darker());
+		botaoAzul = new JButton("");
+		painel.add(botaoAzul);
+		botaoAzul.setBackground(Color.BLUE.darker().darker().darker().darker());
+
+		painel.setLayout(new GridLayout(2, 2));
+
+		janela.add(painel);
+		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setSize(300, 300);
+		janela.setLocationRelativeTo(null);
+		janela.setVisible(true);
+		janela.setJMenuBar(menu);
+
+		botaoAzul.addActionListener(new botaoOuvinte());
+		botaoVermelho.addActionListener(new botaoOuvinte());
+		botaoAmarelo.addActionListener(new botaoOuvinte());
+		botaoVerde.addActionListener(new botaoOuvinte());
+		vetorBotao[0] = botaoAmarelo;
+		vetorBotao[1] = botaoAzul;
+		vetorBotao[2] = botaoVerde;
+		vetorBotao[3] = botaoVermelho;
+
+		sair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				System.exit(0);
+			}
+		});
+		iniciar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				menuIniciarContinuar();
+			}
+		});
+
+	}
+
+	class botaoOuvinte implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent ae) {
+			if (ae.getSource().equals(botaoAzul)) {
+				numBotao = 0;
+				piscar();
+
+			} else if (ae.getSource().equals(botaoVermelho)) {
+				numBotao = 1;
+				piscar();
+
+			} else if (ae.getSource().equals(botaoAmarelo)) {
+				numBotao = 2;
+				piscar();
+
+			} else if (ae.getSource().equals(botaoVerde)) {
+				numBotao = 3;
+				piscar();
+			}
+		}
+	}
+
+	public void validarJogada() {
+		if (vetorComputador.size() == vetorJogador.size()) {
+			for (int i = 0; i < vetorComputador.size(); i++) {
+				if (vetorComputador.get(i) != vetorJogador.get(i)) {
+					System.out.println("Errou a sequência");
+					System.exit(0);
+				}
+			}
+			System.out.println("Acertou até agora");
+			vetorJogador.clear();
+		}
+
+	}
+	public void menuIniciarContinuar() {
+		vetorJogador.clear();
+		for (int i = 0; i < vetorBotao.length; i++) {
+			piscar(vetorotao[i]);
+			vetorComputador.add(i);
+		
+	}
+
+	public void piscar() {
+		SwingWorker worker = new SwingWorker() {
+			@Override
+			protected Object doInBackground() throws Exception {
+
+				for (int i = 0; i < vetorComputador.size(); i++) {
+					numBotao = vetorComputador.get(i);
+				}
+
+				switch (numBotao) {// switch baseado nos valores inseridos na lista Sequencia
+				case 0:
+					botaoAzul.setBackground(Color.BLUE.brighter());
+					Thread.sleep(300);
+					botaoAzul.setBackground(Color.BLUE.darker().darker().darker());
+					break;
+
+				case 1:
+					botaoVermelho.setBackground(Color.RED);
+					Thread.sleep(300);
+					botaoVermelho.setBackground(Color.RED.darker().darker());
+					break;
+				case 2:
+					botaoAmarelo.setBackground(Color.YELLOW);
+					Thread.sleep(300);
+					botaoAmarelo.setBackground(Color.YELLOW.darker().darker());
+					break;
+				case 3:
+					botaoVerde.setBackground(Color.GREEN);
+					Thread.sleep(300);
+					botaoVerde.setBackground(Color.GREEN.darker().darker().darker());
+					break;
+				}
+				return null;
+			}
+
+			@Override
+			protected void done() {
+
+				super.done();
+				try {
+					get();
+				} catch (InterruptedException | ExecutionException ex) {
+					ex.printStackTrace();
+				}
+			}
+		};
+		worker.execute();
+	}
+
+	public static void main(String[] args) {
+
+		EventQueue.invokeLater(() -> {
+			new GeniusPrincipal().piscar();
+		});
+	}
+
+}
